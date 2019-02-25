@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <input type="file" name="myfile">
+        <button type="submit">Upload</button>
+    </form>
+
+{% if uploaded_file_url %}
+    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+    <p>PATH {{ path }}</p>
+    <img src="{{ uploaded_file_url }}">
+{% endif %}
+{% if thumbs %}
+    <form method="post" action="{% url 'face_detector:add_to_db'%}">
+        <input id="main_foto" name="path" type="hidden" value="{{main_foto}}">
+        {{ form.as_p }}
+
+        {% for thumb in thumbs %}
+        <p>
+            <input type="radio" name="file" value="{{ thumb.2 }}" /> <label for=""><img src="data:image/png;base64,{{ thumb.1 }}" alt="{{ thumb.0 }}">png</label>
+        </p>
+
+        {% endfor %}
+        <button type="submit">Сохранить</button>
+    </form>
+{% endif %}
+
+
+</body>
+</html>

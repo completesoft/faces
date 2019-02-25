@@ -1,0 +1,64 @@
+{% extends "face_detector/base.html" %}
+{% load staticfiles %}
+
+
+
+{% block other_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'face_detector/css/radio_button.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'face_detector/css/font-awesome.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main_content %}
+
+{% if not thumbs %}
+<div class="row justify-content-sm-start ml-1">
+    <form method="post" enctype="multipart/form-data">
+        <h3 class="border-bottom border-info pb-1">Выберите фото для загрузки в БД</h3>
+        {% csrf_token %}
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <input class="form-control-file" type="file" name="myfile">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-info" type="submit">Загрузить</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+<div class="row ml-1">
+    {% if thumbs %}
+    {% load crispy_forms_tags %}
+        <form method="post" action="{% url 'face_detector:add_to_db'%}">
+            <input id="main_foto" name="path" type="hidden" value="{{main_foto}}">
+            <div class="form-row">
+            <div class="col-md-4">
+
+                {{ form|crispy }}
+                <button class="btn btn-primary btn-lg" aria-describedby="subHelp" type="submit">Сохранить</button>
+                <small id="sublHelp" class="form-text text-muted">Сохранять после выбора фото</small>
+            </div>
+            <div class="col-md-8 border-left border-info">
+                <h3 id=="id_description">Отметьте одну из фотографий</h3>
+                <div class="input-group">
+                    {% for thumb in thumbs %}
+                        <div class="radio-img">
+                            <input type="radio" name="file" value="{{ thumb.2 }}" id="{{ forloop.counter0 }}" {% if forloop.first %} required {% endif %} aria-describedby="id_description"/>
+                            <label for="{{ forloop.counter0 }}">
+                                <div class="card m-3 shadow mb-5 rounded" style="width: 10rem;">
+                                    <img src="data:image/png;base64,{{ thumb.1 }}" class="card-img-top" alt="{{ thumb.0 }}">
+                                </div>
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+        </form>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+

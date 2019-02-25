@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  <head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'face_detector/img/logo1.jpeg' %}">
+
+    <title>Face detection</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'face_detector/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'face_detector/css/main.css' %}" rel="stylesheet">
+    {% block other_css %}{% endblock %}
+    <!-- Custom styles for this template -->
+  </head>
+
+  <body>
+
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'face_detector/img/logo1.jpeg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                FaceDetect
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Disabled</a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container-fluid">
+        {% block main_content %}{% endblock %}
+    </div>
+
+
+
+
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'face_detector/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'face_detector/js/bootstrap.min.js' %}"></script>
+    {% block script_block %}{% endblock %}
+  </body>
+</html>
